@@ -35,4 +35,5 @@ con Alt + F2 y escribiendo el comando 'r'.
 
 ## Resultado
 La extensión cargará los datos y se actualizará cada 10 segundos.
+
 ![Imagen Extensión](img/screenshot.png)
