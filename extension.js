@@ -6,7 +6,7 @@ const Mainloop = imports.mainloop;
 const Clutter = imports.gi.Clutter;
 const PanelMenu = imports.ui.panelMenu;
 
-const QUERY_URL = 'https://api.orionx.io/graphql';
+const QUERY_URL = 'http://chaucha.ferativ.com/api/v1/prices';
 
 let _httpSession;
 const GnomeChaucha = new Lang.Class({
@@ -31,10 +31,7 @@ const GnomeChaucha = new Lang.Class({
   },
 
   _loadData: function () {
-    let params = {
-      query: '{marketOrderBook(marketCode:"CHACLP",limit:1){buy{limitPrice}sell{limitPrice}}}'
-
-    };
+    let params = { };
     _httpSession = new Soup.Session();
     let message = Soup.form_request_new_from_hash('GET', QUERY_URL, params);
     _httpSession.queue_message(message, Lang.bind(this, function (_httpSession, message) {
@@ -48,8 +45,8 @@ const GnomeChaucha = new Lang.Class({
   },
 
   _refreshUI: function (data) {
-    let buy  = data.data.marketOrderBook.buy[0].limitPrice;
-    let sell = data.data.marketOrderBook.sell[0].limitPrice;
+    let buy  = data.marketOrderBook.buy[0].limitPrice;
+    let sell = data.marketOrderBook.sell[0].limitPrice;
     txt = "CHA Venta: " + buy + ", Compra: " + sell;
     this.buttonText.set_text(txt);
   },
